@@ -86,23 +86,22 @@
   padding: 0 30px;
   border-radius: 5px;
   height: 3vh;
-  margin-top: 2px;
 }
 .categories span {
   margin-left: 13px;
   margin-right: 13px;
-  margin-top: 5px;
 }
 .categories h4 {
   font-weight: 500;
   font-size: large;
-  margin-top: 8px;
+  margin-top: 2px;
 }
 .categories h4 i {
   margin-left: 10px;
 }
 header {
   height: 6vh;
+
   box-shadow: -0.3px 0.7px rgba(0, 0, 0, 0.1);
 }
 header ul {
@@ -147,5 +146,8 @@ header ul li a:hover {
   .search h1 {
     margin-right: 55px;
     color: white;
+  }
+  .cart {
+    display: none;
   }
 }
