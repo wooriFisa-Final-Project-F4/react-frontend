@@ -93,15 +93,23 @@ export const Home = () => {
         </div>{" "}
         <div className="slide_div">
           <div className="slide_header">
-            <h1 className="carousel_title">오늘의 작품</h1>
-            <h1 className="carousel_title">모든 작품 보기</h1>
+            <div className="left">
+              <h1 className="carousel_title">오늘의 작품</h1>
+            </div>
+            <div className="right">
+              <h1 className="carousel_title">모든 작품 보기</h1>
+            </div>
           </div>
           <TodaySlide />
         </div>
         <div className="slide_div">
           <div className="slide_header">
-            <h1 className="carousel_title">신작</h1>
-            <h1 className="carousel_title">모든 작품 보기</h1>
+            <div className="left">
+              <h1 className="carousel_title">신작</h1>
+            </div>
+            <div className="right">
+              <h1 className="carousel_title">모든 작품 보기</h1>
+            </div>
           </div>
           <NewSlide />
         </div>
