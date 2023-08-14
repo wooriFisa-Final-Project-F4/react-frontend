@@ -29,7 +29,13 @@ export const Login = () => {
 
   return (
     <section className="login">
-      <div style={{ paddingTop: "50px" }}>
+      <div
+        style={{
+          paddingTop: "25px",
+          height: "100vh",
+          backgroundColor: "rgba(255, 255, 255, 0.882)",
+        }}
+      >
         <Grid
           container
           spacing={3}

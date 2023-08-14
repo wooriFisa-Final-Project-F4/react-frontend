@@ -78,7 +78,6 @@
   .carousel_title {
     position: absolute;
     font-size: 18px;
-    width: 230px;
   }
   .slide_div h1 {
     position: relative;
@@ -93,7 +92,7 @@
     padding-left: 0px;
   }
   .slide_header .right {
-    margin-left: 70px;
+    margin-left: 60px;
     padding-right: 0px;
   }
 }
