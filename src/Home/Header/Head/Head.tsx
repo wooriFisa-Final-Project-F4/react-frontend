@@ -9,9 +9,6 @@ export const Head = () => {
           <Link to="/servicecenter" className="header_item">
             고객센터
           </Link>
-          <Link to="/chargepay" className="header_item">
-            예치금 충전
-          </Link>
           <Link to="/mypage" className="header_item">
             마이페이지
           </Link>
