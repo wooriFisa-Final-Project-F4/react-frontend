@@ -1,0 +1,161 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 500px;
+}
+.information {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.information h2 {
+  font-size: 30px;
+}
+.information p {
+  padding-top: 3px;
+  font-weight: 500;
+}
+.price {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.price p {
+  font-size: 20px;
+  padding-top: 5px;
+}
+.bidPrice {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.bidPrice p {
+  font-size: 20px;
+}
+.product .artist {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+.product p {
+  padding-bottom: 5px;
+}
+.product span {
+  font-size: 25px;
+  font-weight: bold;
+}
+.productContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.product_imgBox {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+}
+
+.product_imgBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 변경된 부분 */
+  transition: transform 0.3s ease;
+}
+
+.thumbnails {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnails img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 1px solid #eaeaea;
+}
+
+.thumbnails img.active {
+  border: 2px solid #333;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.product_detail {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+  padding-top: 20px;
+  width: 100%;
+}
+/* 모달 스타일 */
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.modal-content h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.modal-content input[type="number"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #000000;
+  border-radius: 4px;
+}
+
+.modal-content button {
+  background-color: #eba800;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.modal-content button:hover {
+  background-color: #000000;
+}
+
+@media only screen and (max-width: 768px) {
+  .productContainer {
+    flex-direction: column;
+  }
+  .modal-content {
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+  }
+}
