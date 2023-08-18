@@ -2,14 +2,27 @@ import { SearchOutlined, Dashboard } from "@mui/icons-material";
 
 import { SearchBox } from "./SearchBox";
 import { Link } from "react-router-dom";
-import { Categories } from "../Navbar/Categories";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CategoryList from "../Navbar/CategoryList";
 import "../Navbar/Categories.css";
 
 export const Search = () => {
   const [showCategories, setShowCategories] = useState(false);
   const [activeTab, setActiveTab] = useState<string | null>(null);
+  // 윈도우 크기가 변경될 때마다 이벤트를 감지
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setShowCategories(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <section className="search">
       <div className="container c_flex">
