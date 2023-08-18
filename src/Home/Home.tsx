@@ -80,7 +80,7 @@ export const Home = () => {
       <section className="home">
         <div className="home_div">
           <div className="container f_flex">
-            <h1 className="carousel_title">경매 마감 임박 작품</h1>
+            <h1 className="carousel_title">경매 마감 임박</h1>
             <Carroussel
               cards={cards}
               height="550px"
