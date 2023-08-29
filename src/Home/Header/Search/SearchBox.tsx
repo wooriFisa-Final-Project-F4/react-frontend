@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
@@ -26,14 +25,6 @@ export const SearchBox = () => {
             <i>
               <FavoriteBorderOutlinedIcon style={{ color: "white" }} />
             </i>
-          </Link>
-        </div>
-        <div className="cart">
-          <Link to="/cart">
-            <i>
-              <ShoppingBagOutlinedIcon style={{ color: "white" }} />
-            </i>
-            <span>0</span>
           </Link>
         </div>
       </div>

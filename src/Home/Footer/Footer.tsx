@@ -5,6 +5,7 @@ import {
   PersonOutline,
   ShoppingBagOutlined,
   HomeOutlined,
+  PriceChangeOutlined,
 } from "@mui/icons-material";
 import "./Footer.css";
 import { Link } from "react-router-dom";
@@ -52,7 +53,7 @@ export const Footer = () => {
         <div className="icon">
           <Link to="/cart">
             <i>
-              <ShoppingBagOutlined className="footer_icon" />
+              <PriceChangeOutlined className="footer_icon" />
             </i>
             <span>0</span>
           </Link>

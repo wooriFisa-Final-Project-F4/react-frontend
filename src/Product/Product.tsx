@@ -109,10 +109,6 @@ export const Product = () => {
             <p>{arts.style}</p>
             <p>{arts.size}</p>
           </div>
-          <div className="price">
-            <p>즉시 낙찰가</p>
-            <span>₩{arts.price}원</span>
-          </div>
           <div className="bidPrice">
             {arts.auction_product.status === "sale" && (
               <p style={{ color: "blue" }}>경매 진행중</p>
@@ -130,18 +126,6 @@ export const Product = () => {
             <span>₩{arts.auction_product.bid_price}원</span>
           </div>
           <div className="buttons">
-            <a className="frame-btn btn-instant-purchase" href="#">
-              <span className="frame-btn__outline frame-btn__outline--tall">
-                <span className="frame-btn__line frame-btn__line--tall"></span>
-                <span className="frame-btn__line frame-btn__line--flat"></span>
-              </span>
-              <span className="frame-btn__outline frame-btn__outline--flat">
-                <span className="frame-btn__line frame-btn__line--tall"></span>
-                <span className="frame-btn__line frame-btn__line--flat"></span>
-              </span>
-              <span className="frame-btn__solid"></span>
-              <span className="frame-btn__text">즉시 낙찰하기</span>
-            </a>
             <a className="frame-btn btn-bid" href="#">
               <span className="frame-btn__outline frame-btn__outline--tall">
                 <span className="frame-btn__line frame-btn__line--tall"></span>
