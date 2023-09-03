@@ -1,0 +1,18 @@
+.product_image {
+  padding: 10px;
+  background-color: white;
+  border: 5px solid black;
+  width: 250px;
+  height: auto;
+  margin-right: 16px;
+}
+.product-card {
+  transition: transform 0.3s ease-in-out;
+  background-color: white;
+}
+
+.product-card:hover {
+  transform: scale(1.01);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 1;
+}
