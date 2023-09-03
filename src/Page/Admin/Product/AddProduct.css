@@ -1,0 +1,22 @@
+.addProduct {
+  margin: auto;
+  padding: 30px;
+  width: 98%;
+  text-align: center;
+  overflow-x: scroll;
+  border: 1px solid;
+}
+.addProduct {
+  overflow: scroll;
+}
+.addProduct::-webkit-scrollbar {
+  width: 5px;
+}
+.addProduct::-webkit-scrollbar-thumb {
+  height: 20px; /* 스크롤바의 길이 */
+  background: #000000; /* 스크롤바의 색상 */
+  border-radius: 10px;
+}
+.button {
+  width: 50px;
+}

@@ -1,0 +1,32 @@
+.products {
+  display: flex;
+  flex-direction: row;
+}
+.sidebar {
+  position: relative;
+  overflow: scroll;
+  overflow-y: scroll;
+  padding: 25px;
+  height: 100%;
+  transition: all 0.2s;
+  -ms-overflow-style: none;
+  width: 250px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  height: 20px; /* 스크롤바의 길이 */
+  background: #000000; /* 스크롤바의 색상 */
+  border-radius: 0px;
+}
+.sidebar::-webkit-scrollbar-track {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgb(255, 255, 255); /*스크롤바 뒷 배경 색상*/
+}
+.product_list {
+  position: relative;
+  margin-left: 250px;
+  padding: 10px;
+}

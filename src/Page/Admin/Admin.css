@@ -1,0 +1,15 @@
+.adminpage {
+  display: flex;
+  flex-direction: row;
+}
+
+.main {
+  padding-top: 30px;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.main h1 {
+  padding: 10px;
+}
