@@ -1,62 +1,129 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Grid,
-  Container,
-  Typography,
-  InputAdornment,
-} from "@mui/material";
-import { Email, VpnKey, Phone, Cake, Person, Home } from "@mui/icons-material";
-import DaumPostcode from "react-daum-postcode";
-import { Post } from "./Post";
+import { Grid, Container } from "@mui/material";
+
+import { RegisterHeader } from "./Components/RegisterHeader";
+import { InputField } from "./Components/InputFieldProps";
+import { EmailInput } from "./Components/EmailInput";
+import { GenderRadioGroup } from "./Components/GenderRadioGroup";
+import { PhoneNumberInput } from "./Components/PhoneNumberInput";
+import { AddressInput } from "./Components/AddressInput";
+import { RegisterButton } from "./Components/RegisterButton";
+import { BirthDateInput } from "./Components/BirthDateInput";
+
 import "./Register.css";
+import "./Post.css";
+import { Loading } from "../../Utils/Loading";
+import { FetchFail } from "../../Utils/FetchFail";
+import SignupRequest from "../../Api/UserService/SignupRequest";
+import { signup } from "../../Api/UserService/UserAPI";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
-  const [userDetails, setUserDetails] = useState({
+  const [formData, setFormData] = useState({
     username: "",
-    email: "",
-    password: "",
-    gender: "",
-    age: "",
-    phoneNumberMiddle: "",
-    phoneNumberLast: "",
+    gender: "남",
+    birth: "",
     address: "",
     detailAddress: "",
+    email: "",
+    password: "",
+    phoneNumber: "010-",
+    phoneNumberMiddle: "",
+    phoneNumberLast: "",
   });
-  const [validPhoneNumber, setValidPhoneNumber] = useState(true);
-
-  const validatePhoneNumber = () => {
-    if (
-      /^[0-9]{4}$/.test(userDetails.phoneNumberMiddle) &&
-      /^[0-9]{4}$/.test(userDetails.phoneNumberLast)
-    ) {
-      setValidPhoneNumber(true);
-    } else {
-      setValidPhoneNumber(false);
-    }
-  };
-
+  const [validations, setValidations] = useState({
+    phoneNumber: true,
+    email: true,
+  });
   const [popup, setPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleValidation = {
+    phoneNumber: (phoneNumberMiddle: string, phoneNumberLast: string) => {
+      if (!phoneNumberMiddle || !phoneNumberLast) return false;
+      return (
+        /^[0-9]{4}$/.test(phoneNumberMiddle) &&
+        /^[0-9]{4}$/.test(phoneNumberLast)
+      );
+    },
+
+    email: (email: string) => {
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      if (email.trim() === "" || !regex.test(email)) {
+        return true;
+      }
+      return false;
+    },
+  };
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
-    setUserDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
     if (name === "phoneNumberMiddle" || name === "phoneNumberLast") {
-      validatePhoneNumber();
+      const updatedPhone = formData.phoneNumber.split("-");
+      if (name === "phoneNumberMiddle") {
+        updatedPhone[1] = value;
+      } else {
+        updatedPhone[2] = value;
+      }
+
+      const newPhoneNumber = updatedPhone.join("-");
+      setFormData((prev) => ({ ...prev, phoneNumber: newPhoneNumber }));
+
+      const isValidPhoneNumber = handleValidation.phoneNumber(
+        updatedPhone[1],
+        updatedPhone[2]
+      );
+      setValidations((prev) => ({
+        ...prev,
+        phoneNumber: isValidPhoneNumber,
+      }));
     }
   };
 
   const handleComplete = (data: any) => {
-    setUserDetails((prevDetails) => ({
-      ...prevDetails,
-      address: data.address,
-    }));
+    setFormData((prev) => ({ ...prev, address: data.address }));
     setPopup(false);
   };
+
+  const navigate = useNavigate();
+  const handleSignup = async () => {
+    const request: SignupRequest = {
+      username: formData.username,
+      gender: formData.gender,
+      birth: formData.birth,
+      address: formData.address + " " + formData.detailAddress,
+      email: formData.email,
+      password: formData.password,
+      phoneNumber:
+        formData.phoneNumber +
+        formData.phoneNumberMiddle +
+        "-" +
+        formData.phoneNumberLast,
+    };
+    setIsLoading(true);
+    try {
+      const response = await signup(request);
+      setError("");
+      if (response) {
+        navigate("/login");
+      }
+    } catch (error) {
+      setError("회원가입에 실패했습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <FetchFail message={error} />;
+  }
 
   return (
     <section className="signup">
@@ -73,126 +140,50 @@ export const Register = () => {
             width: "470px",
           }}
         >
-          <Typography
-            mt={5}
-            variant="h4"
-            component="h1"
-            color="textPrimary"
-            style={{ textAlign: "center" }}
-          >
-            회원가입
-          </Typography>
+          <RegisterHeader />
           <Grid container spacing={2} direction="column">
             <Grid item>
-              <TextField
-                style={{ width: "200px" }}
-                required
+              <InputField
                 label="사용자 이름"
                 name="username"
-                variant="outlined"
-                value={userDetails.username}
+                value={formData.username}
                 onChange={handleChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Person />
-                    </InputAdornment>
-                  ),
-                }}
+                startIcon="person"
               />
             </Grid>
             <Grid item>
-              <TextField
-                style={{ width: "400px" }}
-                required
-                label="이메일 ID"
-                name="email"
-                variant="outlined"
-                value={userDetails.email}
-                onChange={handleChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Email />
-                    </InputAdornment>
-                  ),
-                  endAdornment: <Button variant="outlined">인증</Button>,
-                }}
+              <EmailInput
+                email={formData.email}
+                handleChange={handleChange}
+                validations={handleValidation.email}
               />
             </Grid>
             <Grid item>
-              <TextField
-                style={{ width: "320px" }}
-                required
+              <InputField
                 label="비밀번호"
                 name="password"
-                variant="outlined"
                 type="password"
-                value={userDetails.password}
+                value={formData.password}
                 onChange={handleChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <VpnKey />
-                    </InputAdornment>
-                  ),
-                }}
+                startIcon="vpnkey"
               />
             </Grid>
+
             <Grid item>
-              <h4>생년월일</h4>
-              <TextField
-                variant="outlined"
-                type="date"
-                name="age"
-                value={userDetails.age}
-                onChange={handleChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Cake />
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <BirthDateInput value={formData.birth} onChange={handleChange} />
             </Grid>
             <Grid item>
-              <h4>연락처</h4>
-              <TextField
-                required
-                variant="outlined"
-                value="010"
-                InputProps={{
-                  readOnly: true,
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Phone />
-                    </InputAdornment>
-                  ),
-                }}
-                style={{ width: "100px", marginRight: "10px" }}
-              />
-              <TextField
-                required
-                variant="outlined"
-                name="phoneNumberMiddle"
+              <GenderRadioGroup
+                value={formData.gender}
                 onChange={handleChange}
-                style={{ width: "100px", marginRight: "10px" }}
-                inputProps={{ maxLength: 4 }}
               />
-              <TextField
-                required
-                variant="outlined"
-                name="phoneNumberLast"
-                onChange={handleChange}
-                style={{ width: "100px" }}
-                inputProps={{ maxLength: 4 }}
+            </Grid>
+            <Grid item style={{ height: "100px" }}>
+              <PhoneNumberInput
+                formData={formData}
+                handleChange={handleChange}
+                validations={validations}
               />
-              {!validPhoneNumber && (
-                <p style={{ marginTop: "5px", color: "red" }}>
-                  휴대폰 번호가 올바르지 않습니다.
-                </p>
-              )}
             </Grid>
             <Grid
               item
@@ -200,58 +191,24 @@ export const Register = () => {
               sm={8}
               md={6}
               lg={4}
-              style={{ display: "flex", flexDirection: "column" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
             >
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <TextField
-                  style={{ width: "350px", marginRight: "10px" }}
-                  label="주소"
-                  variant="outlined"
-                  type="text"
-                  name="address"
-                  value={userDetails.address}
-                  onChange={handleChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Home />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-                <Button
-                  onClick={() => setPopup(true)}
-                  style={{
-                    color: "white",
-                    backgroundColor: "black",
-                    width: "100px",
-                  }}
-                >
-                  우편번호 찾기
-                </Button>
-                {popup && (
-                  <Post setcompany={handleComplete} setPopup={setPopup} />
-                )}
-              </div>
-              <TextField
-                style={{ width: "460px", marginTop: "5px" }}
-                label="상세주소"
-                variant="outlined"
-                type="text"
-                name="detailAddress"
-                value={userDetails.detailAddress}
-                onChange={handleChange}
+              <AddressInput
+                formData={formData}
+                handleComplete={handleComplete}
+                setPopup={setPopup}
+                popup={popup}
+                onchange={handleChange}
               />
             </Grid>
-            <Grid item>
-              <Button
-                fullWidth
-                variant="contained"
-                style={{ backgroundColor: "black" }}
-                startIcon={<Home />}
-              >
-                회원가입
-              </Button>
+            <Grid item md={6}>
+              <RegisterButton
+                handleSignup={handleSignup}
+                disabled={isLoading}
+              />
             </Grid>
           </Grid>
         </Container>
